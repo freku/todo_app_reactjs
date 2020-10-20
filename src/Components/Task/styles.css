@@ -1,3 +1,42 @@
 .task {
-  
+  background: #F2F2F2;
+  border-radius: 35px;
+  margin: 15px;
+
+  display: flex;
+  flex-direction: row;
+  border: 1px solid rgba(0,0,0,.05);
+}
+
+.check-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+}
+
+.task-center {
+  flex-grow: 1;
+  padding: 10px 0;
+}
+
+.dates {
+  font-size: 0.7rem;
+  color: rgba(0,0,0,.75);
+}
+
+.task-title {
+  padding-bottom: 10px;
+}
+
+.subtask-count {
+  font-size: 0.7rem;
+  color: rgba(0,0,0,.75);
+}
+
+.make-special-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
 }

@@ -9,14 +9,17 @@ const TaskList = (props) => {
       <div className="task-list">
         <Task />
         <Task />
-        <Task />
       </div>
       <div className="input-box">
-        <div class='icon'>
+        <div className='icon'>
           <SendIcon />
         </div>
         <input type="text" name="task-name" />
       </div>
+      {/* <div className="blured-bg seen"></div> */}
+      <div className="blured-bg"></div>
+
+      {/* <div className="task-options-bar"></div> */}
     </div>
   );
 };

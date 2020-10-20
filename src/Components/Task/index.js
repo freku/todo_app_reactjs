@@ -2,6 +2,8 @@ import React from "react";
 import "./styles.css";
 import { ReactComponent as CheckIcon } from "../../icons/crop_din-24px.svg";
 import { ReactComponent as ImportantIcon } from "../../icons/grade-24px.svg";
+import { ReactComponent as ImportantFullIcon } from "../../icons/grade-24px-full.svg";
+import { ReactComponent as CheckedIcon } from "../../icons/circle-checked.svg";
 
 const Task = (props) => {
   return (
@@ -10,18 +12,22 @@ const Task = (props) => {
         <CheckIcon />
       </div>
 
-      <div class="task-center">
-        <div class="dates">
+      <div className="task-center">
+        <div className="dates">
           <span>20.02.2020</span>
         </div>
-        <div class="task-title">
-          <p>Do some task</p>
+        <div className="task-title">
+          <p>
+            Integer eget dignissim ligula. Vestibulum ornare, purus at aliquet
+            varius, nisl metus pretium purus.
+          </p>
         </div>
-        <div class="subtask-count">
+        <div className="subtask-count">
           <span>1</span>
         </div>
       </div>
-      <div class="make-special-icon">
+
+      <div className="make-special-icon">
         <ImportantIcon />
       </div>
     </div>
