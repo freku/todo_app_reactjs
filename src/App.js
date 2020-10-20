@@ -1,11 +1,20 @@
-import React from 'react';
+import React from "react";
+import Firebase, { FirebaseContext, AuthUserContextProvider } from "./Firebase";
+import SideBar from './Components/SideBar';
+import TaskList from './Components/TaskList';
+import './styles.css';
 
-const App = props => {
+const App = (props) => {
   return (
-    <div>
-      <h1>App</h1>
-    </div>
+    <FirebaseContext.Provider value={new Firebase()}>
+      <AuthUserContextProvider>
+        <div className="container">
+          <SideBar />
+          <TaskList />
+        </div>
+      </AuthUserContextProvider>
+    </FirebaseContext.Provider>
   );
-}
+};
 
 export default App;

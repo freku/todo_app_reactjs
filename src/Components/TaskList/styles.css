@@ -1,0 +1,49 @@
+.task-list-container {
+  display: flex;
+  flex-direction: column;
+  /* height: 100vh; */
+  flex-grow: 1;
+}
+
+.task-list {
+  flex-grow: 1;
+}
+
+.input-box {
+  display: flex;
+  height: 50px;
+  align-items: center;
+
+  margin: 10px;
+  background: #f2f2f2;
+  border-radius: 35px;
+  padding: 5px;
+}
+
+.input-box .icon {
+  padding: 10px;
+  border-right: 1px solid #fff;
+}
+
+.input-box .icon svg {
+  fill: #6587fd;
+  cursor: pointer;
+}
+
+.input-box .icon svg:hover {
+  fill: #516ccc;
+}
+
+.input-box input {
+  border: 2px solid black;
+  padding: 10px 5px;
+  flex-grow: 1;
+  border-top-right-radius: 35px;
+  border-bottom-right-radius: 35px;
+  border: none;
+  margin: 0 10px;
+}
+
+.input-box input:focus {
+  outline: none;
+}

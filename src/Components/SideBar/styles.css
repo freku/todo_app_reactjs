@@ -1,0 +1,35 @@
+:root {
+  --icon-size-mobile: 35px;
+}
+
+.sidebar {
+  display: flex;
+  justify-content: center;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 20px rgba(0, 0, 0, 0.24);
+}
+
+.sidebar-button {
+  border-right: 1px solid rgba(0, 0, 0, 0.2);
+  flex-grow: 1;
+  text-align: center;
+  padding: 15px 0;
+}
+
+.sidebar-button svg {
+  width: var(--icon-size-mobile);
+  height: var(--icon-size-mobile);
+  fill: rgba(0, 0, 0, 0.8);
+}
+
+.sidebar-button:last-child {
+  border-right: none;
+}
+
+.sidebar-button.active {
+  background: black;
+  background: linear-gradient(90deg, rgba(100,125,238,1) 0%, rgba(138,55,243,1) 100%);
+}
+
+.sidebar-button.active svg {
+  fill: white;
+}
