@@ -1,11 +1,11 @@
 :root {
   --icon-size-mobile: 35px;
+  --icon-size-desktop: 25px;
 }
 
 .sidebar {
   display: flex;
   justify-content: center;
-  /* box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 20px rgba(0, 0, 0, 0.24); */
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 20px rgba(0, 0, 0, 0.12);
 }
 
@@ -16,6 +16,11 @@
   padding: 15px 0;
   /* height: 100%; */
 }
+/* 
+.sidebar-button:hover {
+  background: rgb(238, 238, 238);
+  cursor: pointer;
+} */
 
 .sidebar-button svg {
   width: var(--icon-size-mobile);
@@ -29,9 +34,89 @@
 
 .sidebar-button.active {
   background: black;
-  background: linear-gradient(90deg, rgba(100,125,238,1) 0%, rgba(138,55,243,1) 100%);
+  background: linear-gradient(
+    90deg,
+    rgba(100, 125, 238, 1) 0%,
+    rgba(138, 55, 243, 1) 100%
+  );
 }
 
 .sidebar-button.active svg {
   fill: white;
+}
+
+.sidebar-btn-desc {
+  display: none;
+}
+
+@media all and (min-width: 768px) {
+  .sidebar {
+    width: 200px;
+    margin: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.06), 0 0 20px rgba(0, 0, 0, 0.12);
+    border-radius: 35px;
+    background: linear-gradient(
+      90deg,
+      rgba(100, 125, 238, 1) 0%,
+      rgba(138, 55, 243, 1) 100%
+    );
+    color: white;
+    font-size: 14px;
+  }
+
+  .sidebar-button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-right: none;
+    flex-grow: 0;
+    text-align: center;
+    padding: 10px 0;
+  }
+
+  .sidebar-button:hover {
+    background: rgb(90, 35, 161);
+    cursor: pointer;
+  }
+
+  .sidebar-button:first-child {
+    border-top-left-radius: 35px;
+    border-top-right-radius: 35px;
+  }
+
+  .sidebar-button:last-child {
+    border-bottom-left-radius: 35px;
+    border-bottom-right-radius: 35px;
+  }
+
+  .sidebar-button svg {
+    width: var(--icon-size-desktop);
+    height: var(--icon-size-desktop);
+    fill: rgba(255, 255, 255, 0.8);
+    margin-bottom: 5px;
+  }
+
+  .sidebar-button:last-child {
+    border-right: none;
+  }
+
+  .sidebar-button.active {
+    background: black;
+    
+  }
+
+  .sidebar-button.active svg {
+    fill: white;
+  }
+
+  .sidebar-btn-desc {
+    display: inline;
+  }
+
+  .active .sidebar-btn-desc {
+    color: white;
+  }
 }

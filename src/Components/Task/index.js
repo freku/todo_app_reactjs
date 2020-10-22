@@ -7,7 +7,7 @@ import { ReactComponent as CheckedIcon } from "../../icons/circle-checked.svg";
 
 const Task = (props) => {
   return (
-    <div className="task">
+    <div className="task" onClick={props.onClick}>
       <div className="check-icon">
         <CheckIcon />
       </div>

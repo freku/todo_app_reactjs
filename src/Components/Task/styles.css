@@ -21,12 +21,13 @@
 }
 
 .dates {
-  font-size: 0.7rem;
+  font-size: 0.65rem;
   color: rgba(0,0,0,.75);
 }
 
 .task-title {
-  padding-bottom: 10px;
+  padding-bottom: 5px;
+  font-size: .85rem;
 }
 
 .subtask-count {

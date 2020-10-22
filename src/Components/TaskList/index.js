@@ -1,25 +1,27 @@
-import React from "react";
+import React, { useState } from "react";
+import Task from "../Task";
+import TaskOptionsBar from "../TaskOptionsBar";
 import { ReactComponent as SendIcon } from "../../icons/send-24px.svg";
-import Task from '../Task';
+
 import "./styles.css";
 
 const TaskList = (props) => {
+  const [taskBar, settaskBar] = useState(false);
+
   return (
     <div className="task-list-container">
       <div className="task-list">
-        <Task />
-        <Task />
+        <Task onClick={() => settaskBar(true)} />
+        <Task onClick={() => settaskBar(true)} />
       </div>
       <div className="input-box">
-        <div className='icon'>
+        <div className="icon">
           <SendIcon />
         </div>
         <input type="text" name="task-name" />
       </div>
-      {/* <div className="blured-bg seen"></div> */}
-      <div className="blured-bg"></div>
 
-      {/* <div className="task-options-bar"></div> */}
+      {taskBar && <TaskOptionsBar hideCall={() => settaskBar(!taskBar)} />}
     </div>
   );
 };

@@ -12,18 +12,23 @@ const SideBar = (props) => {
     <div className="sidebar">
       <div className="sidebar-button">
         <SunnyIcon />
+        <p className='sidebar-btn-desc'>Today</p>
       </div>
       <div className="sidebar-button active">
         <ImportantIcon />
+        <p className='sidebar-btn-desc'>Important</p>
       </div>
       <div className="sidebar-button">
         <PlannedIcon />
+        <p className='sidebar-btn-desc'>Planned</p>
       </div>
       <div className="sidebar-button">
         <TaskListIcon />
+        <p className='sidebar-btn-desc'>Task List</p>
       </div>
       <div className="sidebar-button">
         <AddTaskListIcon />
+        <p className='sidebar-btn-desc'>Add New List</p>
       </div>
     </div>
   );

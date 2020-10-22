@@ -1,0 +1,57 @@
+:root {
+  --check-icon-size: 22px;
+  --delete-icon-size: 20px;
+  --add-sub-task-color: #328cf3;
+}
+
+.sub-task {
+  display: flex;
+  padding: 5px;
+  background: #f6f6f6;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+}
+
+.sub-icon {
+  padding-right: 5px;
+}
+
+.sub-icon svg {
+  width: var(--check-icon-size);
+  height: var(--check-icon-size);
+}
+
+.sub-delete-icon {
+  flex-grow: 1;
+  text-align: right;
+}
+
+.sub-delete-icon.del-seen {
+  visibility: hidden;
+}
+
+.sub-delete-icon svg {
+  height: var(--delete-icon-size);
+  width: var(--delete-icon-size);
+}
+
+.sub-task-description {
+  font-size: 0.85rem;
+}
+
+.sub-tasks-list {
+}
+
+.add-sub-task {
+  display: flex;
+  align-items: center;
+  padding: 5px;
+  color: var(--add-sub-task-color);
+}
+
+.add-sub-task svg {
+  fill: var(--add-sub-task-color);
+}
+
+.add-icon {
+  padding-right: 5px;
+}
