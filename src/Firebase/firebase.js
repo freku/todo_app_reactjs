@@ -17,14 +17,14 @@ var firebaseConfig = {
 
 class Firebase {
   constructor() {
-    // if (!firebase.apps.length) {
-    firebase.initializeApp(firebaseConfig);
-    firebase.analytics();
+    if (!firebase.apps.length) {
+      firebase.initializeApp(firebaseConfig);
+      firebase.analytics();
+    }
 
     this.provider = new auth.GoogleAuthProvider();
     this.auth = firebase.auth();
     this.db = firebase.database();
-    // }
   }
 
   signInWithGoogle = () => this.auth.signInWithRedirect(this.provider);
@@ -32,6 +32,32 @@ class Firebase {
   signInWithGooglePopup = () => this.auth.signInWithPopup(this.provider);
 
   signOut = () => this.auth.signOut();
+
+  createTask = (userID, description, special_data = {}) =>
+    this.db.ref(`tasks/${userID}`).push({
+      description,
+      created_at: firebase.database.ServerValue.TIMESTAMP,
+      ...special_data,
+    });
+
+  createNormalTask = (userID, description) =>
+    this.createTask(userID, description);
+
+  createImportantTask = (userID, description) =>
+    this.createTask(userID, description, { is_important: true });
+
+  createTodayTask = (userID, description) =>
+    this.createTask(userID, description, { is_today: true });
+
+  createPlannedTask = (userID, description) =>
+    this.createTask(userID, description, {
+      planned_for: firebase.database.ServerValue.TIMESTAMP + 36000000,
+    });
+
+  createList = (userID, name) =>
+    this.db.ref(`task_lists/${userID}`).push({
+      name,
+    });
 }
 
 export default Firebase;

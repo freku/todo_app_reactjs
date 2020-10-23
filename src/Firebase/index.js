@@ -1,4 +1,5 @@
 import FirebaseContext, {
+  AuthUserContext,
   withAuthUser,
   withFirebase,
   AuthUserContextProvider,
@@ -7,4 +8,4 @@ import Firebase from "./firebase";
 
 export default Firebase;
 
-export { FirebaseContext, withAuthUser, withFirebase, AuthUserContextProvider };
+export { FirebaseContext, AuthUserContext, withAuthUser, withFirebase, AuthUserContextProvider };
