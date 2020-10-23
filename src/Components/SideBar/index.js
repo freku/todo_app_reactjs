@@ -18,6 +18,8 @@ const SideBar = (props) => {
 
   const handleBtnClick = (e) => {
     setTaskPage(e.target.getAttribute("pagename"));
+    let key = e.target.getAttribute("pagename");
+    firebase.deleteList(user.uid, key);
   };
 
   return (

@@ -51,22 +51,32 @@ class Firebase {
 
   createPlannedTask = (userID, description) =>
     this.createTask(userID, description, {
-      planned_for: firebase.database.ServerValue.TIMESTAMP + 36000000,
+      days_from_now: 1,
     });
+
+  createListTask = (userID, description, listID) =>
+    this.createTask(userID, description, { on_list: listID });
 
   createList = (userID, name) =>
     this.db.ref(`task_lists/${userID}`).push({
       name,
     });
-  
+
   deleteList = (userID, listID) => {
     // remove fields from tasks first
-    let userTasks = this.db.ref(`tasks/${userID}`).once();
+    this.db.ref(`tasks/${userID}`).once("value", (snap) => {
+      console.log(snap.val());
 
-    userTasks.map(v => {
-      if (v.child())
-    })
-  }
+      snap.forEach((v) => {
+        console.log(v.val().on_list);
+        let task = v.val();
+        if (task && task.on_list && task.on_list === listID) {
+          console.log('MATCH ' + listID + " " + v.key);
+          // usun pole w tym wiezie
+        }
+      });
+    });
+  };
 
   userListsRef = (userID) => this.db.ref(`task_lists/${userID}`);
 

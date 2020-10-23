@@ -37,8 +37,7 @@
   fill: #516ccc;
 }
 
-.input-box input {
-  border: 2px solid black;
+.task-input-el {
   padding: 10px 5px;
   flex-grow: 1;
   border-top-right-radius: 35px;
@@ -47,7 +46,7 @@
   margin: 0 10px;
 }
 
-.input-box input:focus {
+.task-input-el:focus {
   outline: none;
 }
 
@@ -95,7 +94,7 @@
     fill: #516ccc;
   }
   
-  .input-box input {
+  .task-input-el {
     border: 2px solid black;
     padding: 10px 5px;
     flex-grow: 1;
@@ -105,7 +104,7 @@
     margin: 0 10px;
   }
   
-  .input-box input:focus {
+  .task-input-el:focus {
     outline: none;
   }
 }
