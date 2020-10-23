@@ -58,6 +58,19 @@ class Firebase {
     this.db.ref(`task_lists/${userID}`).push({
       name,
     });
+  
+  deleteList = (userID, listID) => {
+    // remove fields from tasks first
+    let userTasks = this.db.ref(`tasks/${userID}`).once();
+
+    userTasks.map(v => {
+      if (v.child())
+    })
+  }
+
+  userListsRef = (userID) => this.db.ref(`task_lists/${userID}`);
+
+  userTasksRef = (userID) => this.db.ref(`tasks/${userID}`);
 }
 
 export default Firebase;

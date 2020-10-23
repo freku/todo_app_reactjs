@@ -16,6 +16,10 @@
   padding: 15px 0;
   /* height: 100%; */
 }
+
+.sidebar-button.list-btn {
+  border-bottom: 1px solid rgba(0,0,0,.5);
+}
 /* 
 .sidebar-button:hover {
   background: rgb(238, 238, 238);

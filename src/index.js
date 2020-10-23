@@ -7,9 +7,9 @@ import Firebase, { FirebaseContext, AuthUserContextProvider } from "./Firebase";
 ReactDOM.render(
   <React.StrictMode>
     <FirebaseContext.Provider value={new Firebase()}>
-      <AuthUserContextProvider>
-        <App />
-      </AuthUserContextProvider>
+      {/* <AuthUserContextProvider> */}
+      <App />
+      {/* </AuthUserContextProvider> */}
     </FirebaseContext.Provider>
   </React.StrictMode>,
   document.getElementById("root")
