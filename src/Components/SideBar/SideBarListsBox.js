@@ -2,22 +2,41 @@ import React, { useState } from "react";
 import SideBarButton from "./SideBarButton";
 import { useList } from "react-firebase-hooks/database";
 
-import { ReactComponent as AddTaskListIcon } from "../../icons/add_circle_outline-24px.svg";
+import {
+  AddIcon as AddTaskListIcon,
+  LoadingCircleIcon,
+  RemoveIcon,
+  ListButtonIcon,
+} from "../../icons";
 import "./styles.css";
 
-const SideBarListButton = (props) => {
-  const { active, name, ...rest } = props;
+const SideBarListButton = ({ active, name, onClickDelete, ...props }) => {
+  const [hover, setHover] = useState(false);
 
   return (
-    <div {...rest} className={`sidebar-button list-btn ${active ? "active" : ""}`}>
+    <div
+      {...props}
+      onMouseEnter={(e) => setHover(1)}
+      onMouseLeave={(e) => setHover(0)}
+      className={`list-btn ${active ? "active" : ""}`}
+    >
+      <ListButtonIcon />
       <p className="sidebar-btn-desc">{name}</p>
+      <RemoveIcon
+        onClick={props.onClickDelete}
+        style={{ visibility: hover ? "visible" : "hidden" }}
+      />
     </div>
   );
 };
 
-const SideBarListsBox = (props) => {
-  const { user, firebase, taskPage, handleBtnClick } = props;
-
+const SideBarListsBox = ({
+  user,
+  firebase,
+  taskPage,
+  handleBtnClick,
+  ...props
+}) => {
   const [showListInput, setShowListInput] = useState(false);
   const [newListName, setNewListName] = useState("");
   const [snapshots, loadingList, errorList] = useList(
@@ -30,10 +49,14 @@ const SideBarListsBox = (props) => {
     e.preventDefault();
   };
 
+  const onClickDelete = (e, key) => {
+    firebase.deleteList(user.uid, key);
+  };
+
   return (
     <>
       {errorList && <strong>Error: {errorList}</strong>}
-      {loadingList && <span>List: Loading...</span>}
+      {loadingList && <LoadingCircleIcon className="subtask-loading" />}
       {!loadingList && snapshots && (
         <>
           {snapshots.map((v) => (
@@ -43,6 +66,7 @@ const SideBarListsBox = (props) => {
               pagename={v.key}
               active={taskPage === v.child("name").val()}
               onClick={(e) => handleBtnClick(e)}
+              onClickDelete={(e) => onClickDelete(e, v.key)}
             />
           ))}
         </>

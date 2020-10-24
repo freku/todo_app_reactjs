@@ -3,7 +3,7 @@ import SideBar from "./Components/SideBar";
 import TaskList from "./Components/TaskList";
 import { FirebaseContext } from "./Firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { ReactComponent as LoadingIcon } from "./icons/loading.svg";
+import { LoadingIcon } from "./icons";
 
 import "./styles.css";
 

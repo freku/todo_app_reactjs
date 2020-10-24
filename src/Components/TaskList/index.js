@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react";
 import Task from "../Task";
 import TaskOptionsBar from "../TaskOptionsBar";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { ReactComponent as SendIcon } from "../../icons/send-24px.svg";
+import { SendIcon } from "../../icons";
 
 import "./styles.css";
 import { FirebaseContext } from "../../Firebase";

@@ -1,9 +1,11 @@
 :root {
   --icon-size-mobile: 35px;
   --icon-size-desktop: 25px;
+  --loading-icon-size-desktop: 20px;
+  --list-btn-icon-size-dekstop: 15px;
 }
 
-.sidebar {
+/* .sidebar {
   display: flex;
   justify-content: center;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 20px rgba(0, 0, 0, 0.12);
@@ -14,17 +16,11 @@
   flex-grow: 1;
   text-align: center;
   padding: 15px 0;
-  /* height: 100%; */
 }
 
-.sidebar-button.list-btn {
-  border-bottom: 1px solid rgba(0,0,0,.5);
+.list-btn {
+  display: none;
 }
-/* 
-.sidebar-button:hover {
-  background: rgb(238, 238, 238);
-  cursor: pointer;
-} */
 
 .sidebar-button svg {
   width: var(--icon-size-mobile);
@@ -55,7 +51,163 @@
   pointer-events: none;
 }
 
+.subtask-loading {
+  width: var(--loading-icon-size-desktop);
+  height: var(--loading-icon-size-desktop);
+  margin: 10px auto;
+} */
+
+.sidebar {
+  width: 200px;
+  height: 100%;
+  overflow-y: auto;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.06), 0 0 20px rgba(0, 0, 0, 0.12);
+  border-top-right-radius: 35px;
+  border-bottom-right-radius: 35px;
+  background: linear-gradient(
+    90deg,
+    rgba(100, 125, 238, 1) 0%,
+    rgba(138, 55, 243, 1) 100%
+  );
+  color: white;
+  font-size: 14px;
+  z-index: 3;
+}
+
+.sidebar-button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-right: none;
+  flex-grow: 0;
+  text-align: center;
+  padding: 10px 0;
+}
+
+.list-btn {
+  display: flex;
+  font-size: 0.8rem;
+  align-items: center;
+  padding: 5px 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.5);
+}
+
+.list-btn p {
+  flex-grow: 1;
+}
+
+.list-btn svg {
+  margin: 5px;
+  fill: white;
+  width: var(--list-btn-icon-size-dekstop);
+  height: var(--list-btn-icon-size-dekstop);
+}
+
+.list-btn:hover {
+  background: rgb(90, 35, 161);
+  cursor: pointer;
+}
+
+.sidebar-button:hover {
+  background: rgb(90, 35, 161);
+  cursor: pointer;
+}
+
+.sidebar-button:first-child {
+  /* border-top-left-radius: 35px; */
+  border-top-right-radius: 35px;
+}
+
+.sidebar-button:last-child {
+  /* border-bottom-left-radius: 35px; */
+  border-bottom-right-radius: 35px;
+}
+
+.sidebar-button svg {
+  width: var(--icon-size-desktop);
+  height: var(--icon-size-desktop);
+  fill: rgba(255, 255, 255, 0.8);
+  margin-bottom: 5px;
+  pointer-events: none;
+}
+
+.sidebar-button:last-child {
+  border-right: none;
+}
+
+.sidebar-button.active {
+  background: black;
+}
+
+.sidebar-button.active svg {
+  fill: white;
+}
+
+.sidebar-btn-desc {
+  display: inline;
+}
+
+.active .sidebar-btn-desc {
+  color: white;
+}
+
+.sidebar-blured-bg {
+  background-color: rgba(0, 0, 0, 0.3);
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  z-index: 2;
+}
+
+.sidebar-blured-bg.deactive {
+  display: none;
+}
+
+.subtask-loading {
+  width: var(--loading-icon-size-desktop);
+  height: var(--loading-icon-size-desktop);
+  margin: 10px auto;
+}
+
+.mobile-bar {
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+  padding: 10px;
+}
+
+.mobile-bar svg {
+  width: var(--icon-size-desktop);
+  height: var(--icon-size-desktop);
+}
+
+.mb-title {
+  text-align: right;
+  font-weight: 900;
+  flex: 1;
+  text-transform: capitalize;
+}
+
+.sidebar-btn-desc {
+  pointer-events: none;
+}
+
 @media all and (min-width: 768px) {
+  .mobile-bar {
+    display: none;
+  }
+
+  .mb-title {
+    text-align: right;
+    font-weight: 900;
+    flex: 1;
+    text-transform: capitalize;
+  }
+
   .sidebar {
     width: 200px;
     margin: 10px;
@@ -72,6 +224,8 @@
     );
     color: white;
     font-size: 14px;
+    position: static;
+    height: auto;
   }
 
   .sidebar-button {
@@ -82,6 +236,30 @@
     flex-grow: 0;
     text-align: center;
     padding: 10px 0;
+  }
+
+  .list-btn {
+    display: flex;
+    font-size: 0.8rem;
+    align-items: center;
+    padding: 5px 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.5);
+  }
+
+  .list-btn p {
+    flex-grow: 1;
+  }
+
+  .list-btn svg {
+    margin: 5px;
+    fill: white;
+    width: var(--list-btn-icon-size-dekstop);
+    height: var(--list-btn-icon-size-dekstop);
+  }
+
+  .list-btn:hover {
+    background: rgb(90, 35, 161);
+    cursor: pointer;
   }
 
   .sidebar-button:hover {
@@ -104,7 +282,6 @@
     height: var(--icon-size-desktop);
     fill: rgba(255, 255, 255, 0.8);
     margin-bottom: 5px;
-    
   }
 
   .sidebar-button:last-child {

@@ -65,16 +65,23 @@ class Firebase {
   deleteList = (userID, listID) => {
     // remove fields from tasks first
     this.db.ref(`tasks/${userID}`).once("value", (snap) => {
-      console.log(snap.val());
-
       snap.forEach((v) => {
-        console.log(v.val().on_list);
         let task = v.val();
         if (task && task.on_list && task.on_list === listID) {
-          console.log('MATCH ' + listID + " " + v.key);
-          // usun pole w tym wiezie
+          // delete dependencie of taks to this list
+          this.db
+            .ref(`tasks/${userID}/${v.key}/on_list`)
+            .remove()
+            .then(() => console.log("udane"))
+            .catch((e) => console.error(e));
         }
       });
+      // delete task list record
+      this.db
+        .ref(`task_lists/${userID}/${listID}`)
+        .remove()
+        .then(() => console.log("usunieto liste"))
+        .catch((err) => console.error(err));
     });
   };
 
