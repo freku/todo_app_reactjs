@@ -105,16 +105,16 @@ class Firebase {
         let task = v.val();
 
         if (v.child("days_from_now").val()) {
-          tasks.planned.push(task);
+          tasks.planned.push(v);
         }
         if (v.child("is_important").val()) {
-          tasks.important.push(task);
+          tasks.important.push(v);
         }
         if (v.child("is_today").val()) {
-          tasks.today.push(task);
+          tasks.today.push(v);
         }
         if (!v.child("on_list").val()) {
-          tasks.tasklist.push(task);
+          tasks.tasklist.push(v);
         }
         if (v.child("on_list").val()) {
           const id = v.val().on_list;
@@ -122,7 +122,7 @@ class Firebase {
             tasks[id] = [];
           }
 
-          tasks[id].push(task);
+          tasks[id].push(v);
         }
       });
 
@@ -132,24 +132,47 @@ class Firebase {
     return this.userTasksRef(userID);
   };
 
-  // getNormalTasks = (userID, cb) =>
-  //   this.getTasks(userID, cb, (task) => !task.child("on_list").val());
+  removeTask = (userID, taskID) =>
+    this.userTasksRef(userID).child(taskID).remove();
 
-  // getImportantTasks = (userID, cb) =>
-  //   this.getTasks(userID, cb, (task) => task.child("is_important").val());
+  updateTask = (userID, taskID, data) =>
+    this.userTasksRef(userID).child(taskID).update(data);
 
-  // getTodayTasks = (userID, cb) =>
-  //   this.getTasks(userID, cb, (task) => task.child("is_today").val());
+  setTaskDescription = (userID, taskID, description) =>
+    this.userTasksRef(userID).child(taskID).update({ description });
 
-  // getPlannedTasks = (userID, cb) =>
-  //   this.getTasks(userID, cb, (task) => task.child("days_from_now").val());
+  setTaskCheck = (userID, taskID, done) =>
+    this.userTasksRef(userID).child(taskID).update({ done });
 
-  // getTasksFromList = (userID, listID, cb) =>
-  //   this.getTasks(
-  //     userID,
-  //     cb,
-  //     (task) => task.val().on_list && task.val().on_list === listID
-  //   );
+  setTaskImportant = (userID, taskID, is_important) =>
+    this.userTasksRef(userID).child(taskID).update({ is_important });
+
+  setTaskToday = (userID, taskID, is_today) =>
+    this.userTasksRef(userID).child(taskID).update({ is_today });
+
+  setTaskDeadline = (userID, taskID, days_from_now) =>
+    this.userTasksRef(userID).child(taskID).update({ days_from_now });
+
+  getSubtasks = (userID, taskID, cb) =>
+    this.child(`${taskID}/subtasks`).on('value', cb)
+
+  addSubtaskToTask = (userID, taskID, description) =>
+    this.userTasksRef(userID)
+      .child(`${taskID}/subtasks`)
+      .push({ description, done: false });
+
+  setSubtaskDescription = (userID, taskID, subtaskID, description) =>
+    this.userTasksRef(userID)
+      .child(`${taskID}/subtasks/${subtaskID}`)
+      .update({ description });
+
+  setSubtaskCheck = (userID, taskID, subtaskID, done) =>
+    this.userTasksRef(userID)
+      .child(`${taskID}/subtasks/${subtaskID}`)
+      .update({ done });
+
+  removeSubtask = (userID, taskID, subtaskID) =>
+    this.userTasksRef(userID).child(`${taskID}/subtasks/${subtaskID}`).remove();
 }
 
 export default Firebase;

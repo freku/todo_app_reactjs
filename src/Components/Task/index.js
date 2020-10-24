@@ -1,6 +1,6 @@
 import React from "react";
 import "./styles.css";
-import { CheckIcon, StarIcon, StarFullIcon } from "../../icons";
+import { CheckIcon, StarIcon, StarFullIcon, CheckedIcon } from "../../icons";
 
 const Task = ({ data, ...props }) => {
   const date = new Date(data.created_at);
@@ -8,7 +8,7 @@ const Task = ({ data, ...props }) => {
   return (
     <div className="task" {...props}>
       <div className="check-icon">
-        <CheckIcon />
+        {data.done ? <CheckedIcon /> : <CheckIcon />}
       </div>
 
       <div className="task-center">

@@ -1,5 +1,5 @@
 .blured-bg.seen {
-  background: rgba(0,0,0, .5);
+  background: rgba(0, 0, 0, 0.5);
   position: absolute;
   height: 100vh;
   width: 100vw;
@@ -13,9 +13,10 @@
   padding: 35px 0;
   width: 80%;
   height: 100vh;
-  background: white;;
+  background: white;
   position: absolute;
-  right: 0; top: 0;
+  right: 0;
+  top: 0;
   border-top-left-radius: 35px;
   border-bottom-left-radius: 35px;
   animation: bar-slidein 180ms ease-in-out;
@@ -43,9 +44,9 @@
 .button {
   display: flex;
 
-  background: #F6F6F6;
+  background: #f6f6f6;
   padding: 5px;
-  border-bottom: 1px solid rgba(0,0,0,.15);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.15);
 }
 
 .align-center {
@@ -56,15 +57,25 @@
   padding-right: 5px;
 }
 
-.description {}
+.description {
+  flex: 1;
+  display: flex;
+}
 
 .special-icon {
   margin-left: auto;
 }
 
+.editable-title {
+  flex: 1;
+  background-color: #f6f6f6;
+  border: none;
+  font-size: 20px;
+}
+
 @media all and (min-width: 768px) {
   .blured-bg.seen {
-    background: rgba(0,0,0, .5);
+    background: rgba(0, 0, 0, 0.5);
     position: absolute;
     height: 100vh;
     width: 100vw;
@@ -72,36 +83,38 @@
     top: 0;
     animation: bg-fadein 200ms ease-in-out;
   }
-  
+
   .task-options-bar {
     padding: 35px 0;
     width: 300px;
     height: 100vh;
-    background: white;;
+    background: white;
     position: absolute;
-    right: 0; top: 0;
+    right: 0;
+    top: 0;
     border-top-left-radius: 35px;
     border-bottom-left-radius: 35px;
     animation: bar-slidein 180ms ease-in-out;
   }
   .button {
     display: flex;
-  
-    background: #F6F6F6;
+
+    background: #f6f6f6;
     padding: 5px;
-    border-bottom: 1px solid rgba(0,0,0,.15);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.15);
   }
-  
+
   .align-center {
     align-items: center;
   }
-  
+
   .icon {
     padding-right: 5px;
   }
-  
-  .description {}
-  
+
+  .description {
+  }
+
   .special-icon {
     margin-left: auto;
   }

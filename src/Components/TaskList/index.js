@@ -17,9 +17,10 @@ const getTimeLeft = (days_from_now, timestamp) => {
 };
 
 const TaskList = ({ taskPage, listName, ...props }) => {
-  const [taskBar, settaskBar] = useState(false);
+  const [taskBar, setTaskBar] = useState(false);
   const [inputVal, setInputVal] = useState("");
   const [tasks, setTasks] = useState({});
+  const [currentTask, setCurrentTask] = useState(null);
   const firebase = useContext(FirebaseContext);
   const [user, loading, error] = useAuthState(firebase.auth);
 
@@ -54,8 +55,15 @@ const TaskList = ({ taskPage, listName, ...props }) => {
     setTasks(ts);
   };
 
+  const onTaskClick = (e, barVisibility, taskData) => {
+    setTaskBar(barVisibility);
+    setCurrentTask(taskData);
+
+    console.log(taskData.key);
+  };
+
   useEffect(() => {
-    let ref = firebase.getTasks(user.uid, ts => middleware(ts));
+    let ref = firebase.getTasks(user.uid, (ts) => middleware(ts));
 
     return () => ref.off();
   }, []);
@@ -68,7 +76,7 @@ const TaskList = ({ taskPage, listName, ...props }) => {
       <div className="task-list">
         {tasks[taskPage] &&
           tasks[taskPage].map((val, i) => (
-            <Task data={val} key={i} onClick={() => settaskBar(true)} />
+            <Task data={val.val()} key={i} onClick={(e) => onTaskClick(e, true, val)} />
           ))}
       </div>
       <div className="input-box">
@@ -84,7 +92,7 @@ const TaskList = ({ taskPage, listName, ...props }) => {
         </form>
       </div>
 
-      {taskBar && <TaskOptionsBar hideCall={() => settaskBar(!taskBar)} />}
+      {taskBar && <TaskOptionsBar currentTask={currentTask} hideCall={() => setTaskBar(!taskBar)} />}
     </div>
   );
 };
