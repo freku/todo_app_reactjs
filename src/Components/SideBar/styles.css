@@ -108,12 +108,12 @@
 }
 
 .list-btn:hover {
-  background: rgb(90, 35, 161);
+  background: rgb(0, 0, 0);
   cursor: pointer;
 }
 
 .sidebar-button:hover {
-  background: rgb(90, 35, 161);
+  background: rgb(0, 0, 0);
   cursor: pointer;
 }
 

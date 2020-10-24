@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import SideBarButton from "./SideBarButton";
 import { useList } from "react-firebase-hooks/database";
+import { useMediaQuery } from "react-responsive";
 
 import {
   AddIcon as AddTaskListIcon,
@@ -11,6 +12,7 @@ import {
 import "./styles.css";
 
 const SideBarListButton = ({ active, name, onClickDelete, ...props }) => {
+  const isMobile = useMediaQuery({ query: "(max-width: 768px)" });
   const [hover, setHover] = useState(false);
 
   return (
@@ -22,10 +24,13 @@ const SideBarListButton = ({ active, name, onClickDelete, ...props }) => {
     >
       <ListButtonIcon />
       <p className="sidebar-btn-desc">{name}</p>
-      <RemoveIcon
-        onClick={props.onClickDelete}
-        style={{ visibility: hover ? "visible" : "hidden" }}
-      />
+      {isMobile && <RemoveIcon onClick={onClickDelete} />}
+      {!isMobile && (
+        <RemoveIcon
+          onClick={onClickDelete}
+          style={{ visibility: hover ? "visible" : "hidden" }}
+        />
+      )}
     </div>
   );
 };
@@ -65,7 +70,7 @@ const SideBarListsBox = ({
               name={v.child("name").val()}
               pagename={v.key}
               active={taskPage === v.child("name").val()}
-              onClick={(e) => handleBtnClick(e)}
+              onClick={(e) => handleBtnClick(e, v.child("name").val())}
               onClickDelete={(e) => onClickDelete(e, v.key)}
             />
           ))}

@@ -1,11 +1,11 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import Task from "../Task";
 import TaskOptionsBar from "../TaskOptionsBar";
+import { FirebaseContext } from "../../Firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { SendIcon } from "../../icons";
 
 import "./styles.css";
-import { FirebaseContext } from "../../Firebase";
 
 const getTimeLeft = (days_from_now, timestamp) => {
   let future_date = new Date(timestamp).getTime();
@@ -16,13 +16,12 @@ const getTimeLeft = (days_from_now, timestamp) => {
   return days_left;
 };
 
-const TaskList = (props) => {
+const TaskList = ({ taskPage, listName, ...props }) => {
   const [taskBar, settaskBar] = useState(false);
   const [inputVal, setInputVal] = useState("");
+  const [tasks, setTasks] = useState({});
   const firebase = useContext(FirebaseContext);
   const [user, loading, error] = useAuthState(firebase.auth);
-
-  const { taskPage } = props;
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -41,21 +40,36 @@ const TaskList = (props) => {
       case undefined:
       case null:
       case "tasklist":
-        firebase.createPlannedTask(user.uid, inputVal);
+        firebase.createNormalTask(user.uid, inputVal);
         break;
       default:
-        firebase.createListTask(user.uid, inputVal);
+        firebase.createListTask(user.uid, inputVal, taskPage);
         break;
     }
 
     setInputVal("");
   };
 
+  const middleware = (ts) => {
+    setTasks(ts);
+  };
+
+  useEffect(() => {
+    let ref = firebase.getTasks(user.uid, ts => middleware(ts));
+
+    return () => ref.off();
+  }, []);
+
   return (
     <div className="task-list-container">
+      <div className="task-list-title">
+        <p>{listName || taskPage || "Site"}</p>
+      </div>
       <div className="task-list">
-        <Task onClick={() => settaskBar(true)} />
-        <Task onClick={() => settaskBar(true)} />
+        {tasks[taskPage] &&
+          tasks[taskPage].map((val, i) => (
+            <Task data={val} key={i} onClick={() => settaskBar(true)} />
+          ))}
       </div>
       <div className="input-box">
         <div className="icon">

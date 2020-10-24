@@ -6,6 +6,7 @@
   left: 0;
   top: 0;
   animation: bg-fadein 200ms ease-in-out;
+  z-index: 4;
 }
 
 .task-options-bar {
@@ -18,6 +19,7 @@
   border-top-left-radius: 35px;
   border-bottom-left-radius: 35px;
   animation: bar-slidein 180ms ease-in-out;
+  z-index: 5;
 }
 
 @keyframes bar-slidein {

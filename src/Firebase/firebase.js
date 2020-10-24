@@ -33,12 +33,16 @@ class Firebase {
 
   signOut = () => this.auth.signOut();
 
-  createTask = (userID, description, special_data = {}) =>
+  createTask = (userID, description, special_data = {}) => {
     this.db.ref(`tasks/${userID}`).push({
       description,
       created_at: firebase.database.ServerValue.TIMESTAMP,
+      done: false,
       ...special_data,
     });
+
+    console.log({ userID, description, ...special_data });
+  };
 
   createNormalTask = (userID, description) =>
     this.createTask(userID, description);
@@ -88,6 +92,64 @@ class Firebase {
   userListsRef = (userID) => this.db.ref(`task_lists/${userID}`);
 
   userTasksRef = (userID) => this.db.ref(`tasks/${userID}`);
+
+  getTasks = (userID, cb) => {
+    this.userTasksRef(userID).on("value", (snap) => {
+      let tasks = {
+        tasklist: [],
+        important: [],
+        planned: [],
+        today: [],
+      };
+      snap.forEach((v) => {
+        let task = v.val();
+
+        if (v.child("days_from_now").val()) {
+          tasks.planned.push(task);
+        }
+        if (v.child("is_important").val()) {
+          tasks.important.push(task);
+        }
+        if (v.child("is_today").val()) {
+          tasks.today.push(task);
+        }
+        if (!v.child("on_list").val()) {
+          tasks.tasklist.push(task);
+        }
+        if (v.child("on_list").val()) {
+          const id = v.val().on_list;
+          if (!(id in tasks)) {
+            tasks[id] = [];
+          }
+
+          tasks[id].push(task);
+        }
+      });
+
+      cb(tasks);
+    });
+
+    return this.userTasksRef(userID);
+  };
+
+  // getNormalTasks = (userID, cb) =>
+  //   this.getTasks(userID, cb, (task) => !task.child("on_list").val());
+
+  // getImportantTasks = (userID, cb) =>
+  //   this.getTasks(userID, cb, (task) => task.child("is_important").val());
+
+  // getTodayTasks = (userID, cb) =>
+  //   this.getTasks(userID, cb, (task) => task.child("is_today").val());
+
+  // getPlannedTasks = (userID, cb) =>
+  //   this.getTasks(userID, cb, (task) => task.child("days_from_now").val());
+
+  // getTasksFromList = (userID, listID, cb) =>
+  //   this.getTasks(
+  //     userID,
+  //     cb,
+  //     (task) => task.val().on_list && task.val().on_list === listID
+  //   );
 }
 
 export default Firebase;

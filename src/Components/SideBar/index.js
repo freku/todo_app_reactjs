@@ -1,9 +1,9 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import SideBarButton from "./SideBarButton";
 import SideBarListsBox from "./SideBarListsBox";
 import { FirebaseContext } from "../../Firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { useMediaQuery } from "react-responsive";
+import MediaQuery, { useMediaQuery } from "react-responsive";
 
 import {
   SunIcon,
@@ -15,26 +15,33 @@ import {
 
 import "./styles.css";
 
-const SideBar = ({ taskPage, setTaskPage }) => {
-  // const { taskPage, setTaskPage } = props;
+const SideBar = ({ taskPage, setTaskPage, setListName, listName }) => {
   const [focus, setFocus] = useState(false);
   const firebase = useContext(FirebaseContext);
   const [user, loading, error] = useAuthState(firebase.auth);
   const isMobile = useMediaQuery({ query: "(max-width: 768px)" });
-  const isDesktop = useMediaQuery({ query: "(min-width: 768px)" });
+  // const isDesktop = useMediaQuery({ query: "(min-width: 768px)" });
 
-  const handleBtnClick = (e) => {
+  const handleBtnClick = (e, name) => {
     setTaskPage(e.target.getAttribute("pagename"));
+    setListName(name || "");
   };
 
   return (
     <>
-      <div className="mobile-bar">
-        <MenuIcon onClick={() => setFocus(true)} />
-        <p className="mb-title">{taskPage}</p>
-      </div>
-      <div className="sidebar" style={{ display: focus ? "block" : "none" }}>
-        {/* <SideBarButton description={taskPage} /> */}
+      <MediaQuery maxWidth={768}>
+        <div className="mobile-bar">
+          <MenuIcon onClick={() => setFocus(true)} />
+          <p className="mb-title">
+            {listName || taskPage || "Site"}
+          </p>
+        </div>
+      </MediaQuery>
+
+      <div
+        className="sidebar"
+        style={{ display: isMobile && !focus ? "none" : "block" }}
+      >
         <SideBarButton
           onClick={handleBtnClick}
           pagename="today"
@@ -76,10 +83,13 @@ const SideBar = ({ taskPage, setTaskPage }) => {
           handleBtnClick={handleBtnClick}
         />
       </div>
-      <div
-        onClick={() => setFocus(false)}
-        className={`sidebar-blured-bg ${focus ? "" : "deactive"}`}
-      ></div>
+
+      <MediaQuery maxWidth={768}>
+        <div
+          onClick={() => setFocus(false)}
+          className={`sidebar-blured-bg ${focus ? "" : "deactive"}`}
+        ></div>
+      </MediaQuery>
     </>
   );
 };

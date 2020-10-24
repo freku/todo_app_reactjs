@@ -1,26 +1,22 @@
 import React from "react";
 import "./styles.css";
-import { ReactComponent as CheckIcon } from "../../icons/crop_din-24px.svg";
-import { ReactComponent as ImportantIcon } from "../../icons/grade-24px.svg";
-import { ReactComponent as ImportantFullIcon } from "../../icons/grade-24px-full.svg";
-import { ReactComponent as CheckedIcon } from "../../icons/circle-checked.svg";
+import { CheckIcon, StarIcon, StarFullIcon } from "../../icons";
 
-const Task = (props) => {
+const Task = ({ data, ...props }) => {
+  const date = new Date(data.created_at);
+  const isImportant = data.is_important;
   return (
-    <div className="task" onClick={props.onClick}>
+    <div className="task" {...props}>
       <div className="check-icon">
         <CheckIcon />
       </div>
 
       <div className="task-center">
         <div className="dates">
-          <span>20.02.2020</span>
+          <span>{`${date.getDay()}/${date.getMonth()}/${date.getFullYear()}`}</span>
         </div>
         <div className="task-title">
-          <p>
-            Integer eget dignissim ligula. Vestibulum ornare, purus at aliquet
-            varius, nisl metus pretium purus.
-          </p>
+          <p>{data.description || "Empty"}</p>
         </div>
         <div className="subtask-count">
           <span>1</span>
@@ -28,7 +24,7 @@ const Task = (props) => {
       </div>
 
       <div className="make-special-icon">
-        <ImportantIcon />
+        {isImportant ? <StarFullIcon /> : <StarIcon />}
       </div>
     </div>
   );

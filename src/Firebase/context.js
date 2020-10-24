@@ -18,7 +18,6 @@ export const AuthUserContextProvider = (props) => {
 
   useEffect(() => {
     let listener = firebase.auth.onAuthStateChanged((user) => {
-      console.log(user);
       setAuthUser(user);
     });
 
