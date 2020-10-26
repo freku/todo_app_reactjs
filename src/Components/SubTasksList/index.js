@@ -1,43 +1,71 @@
-import React, { useState } from "react";
-import { ReactComponent as CheckIcon } from "../../icons/crop_din-24px.svg";
-import { ReactComponent as CancelIcon } from "../../icons/clear-24px.svg";
-import { ReactComponent as AddIcon } from "../../icons/add.svg";
+import React, { useState, useContext } from "react";
+import { FirebaseContext } from "../../Firebase";
+import { AddIcon, LoadingCircleIcon } from "../../icons";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { useList } from "react-firebase-hooks/database";
+import SubTask from "./SubTask";
 
 import "./styles.css";
 
-const SubTask = (props) => {
-  const [hover, setHover] = useState(false);
-
-  return (
-    <div
-      className="sub-task"
-      onMouseEnter={(e) => setHover(1)}
-      onMouseLeave={(e) => setHover(0)}
-    >
-      <div className="sub-icon">
-        <CheckIcon />
-      </div>
-
-      <div className="sub-task-description">
-        <p>Sed vel consequat mauris.</p>
-      </div>
-
-      <div className={`sub-delete-icon ${hover ? "" : "del-seen"}`}>
-        <CancelIcon />
-      </div>
-    </div>
-  );
+const styles = {
+  optsInput: {
+    display: "flex",
+    justifyContent: "center",
+    padding: 10,
+  },
 };
 
-const SubTasksList = (props) => {
+const SubTasksList = ({ currentTask, ...props }) => {
+  const [newSubTaskName, setNewSubTaskName] = useState("");
+  const [showListInput, setShowListInput] = useState(false);
+  const firebase = useContext(FirebaseContext);
+  const [user, loading, error] = useAuthState(firebase.auth);
+  const [snapshots, loadingList, errorList] = useList(
+    firebase.userTasksRef(user.uid).child(`${currentTask.key}/subtasks`)
+  );
+
+  const handleSubmit = (e) => {
+    firebase.addSubtaskToTask(user.uid, currentTask.key, newSubTaskName);
+    document.getElementById("subtaskInput").blur();
+
+    e.preventDefault();
+  };
+
+  const handleRemoveClick = (e, subtaskID) => {
+    firebase.removeSubtask(user.uid, currentTask.key, subtaskID);
+  };
+
   return (
     <div className="sub-tasks-list">
-      <SubTask />
-      <SubTask />
-      <SubTask />
-      <SubTask />
+      {loadingList && <LoadingCircleIcon className="subtask-loading" />}
+      {!loadingList && snapshots && (
+        <>
+          {snapshots.map((v, i) => (
+            <SubTask
+              data={v.val()}
+              key={i}
+              handleRemoveClick={handleRemoveClick}
+              subtaskID={v.key}
+              firebase={firebase}
+              user={user}
+              currentTask={currentTask}
+            />
+          ))}
+        </>
+      )}
 
-      <div className="add-sub-task">
+      {showListInput && (
+        <form onSubmit={(e) => handleSubmit(e)} style={styles.optsInput}>
+          <input
+            autoFocus
+            id="subtaskInput"
+            onBlur={() => setShowListInput(false)}
+            onChange={(e) => setNewSubTaskName(e.target.value)}
+          />
+        </form>
+      )}
+
+      <div className="add-sub-task" onClick={() => setShowListInput(true)}>
         <div className="add-icon">
           <AddIcon />
         </div>

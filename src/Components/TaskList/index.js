@@ -7,19 +7,12 @@ import { SendIcon } from "../../icons";
 
 import "./styles.css";
 
-const getTimeLeft = (days_from_now, timestamp) => {
-  let future_date = new Date(timestamp).getTime();
-  let now = new Date().getTime();
-  future_date = new Date(future_date + 1000 * 60 * 60 * 24 * days_from_now);
-  let days_left = Math.abs(future_date - now) / (1000 * 360 * 24);
-
-  return days_left;
-};
-
 const TaskList = ({ taskPage, listName, ...props }) => {
   const [taskBar, setTaskBar] = useState(false);
   const [inputVal, setInputVal] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
   const [tasks, setTasks] = useState({});
+  // fucking useless, delete it later
   const [currentTask, setCurrentTask] = useState(null);
   const firebase = useContext(FirebaseContext);
   const [user, loading, error] = useAuthState(firebase.auth);
@@ -51,49 +44,79 @@ const TaskList = ({ taskPage, listName, ...props }) => {
     setInputVal("");
   };
 
-  const middleware = (ts) => {
-    setTasks(ts);
-  };
-
   const onTaskClick = (e, barVisibility, taskData) => {
     setTaskBar(barVisibility);
     setCurrentTask(taskData);
-
-    console.log(taskData.key);
   };
 
   useEffect(() => {
-    let ref = firebase.getTasks(user.uid, (ts) => middleware(ts));
+    let ref = firebase.getTasks(user.uid, (ts) => {
+      setIsLoading(false);
+      setTasks(ts);
+    });
 
     return () => ref.off();
   }, []);
 
   return (
-    <div className="task-list-container">
-      <div className="task-list-title">
-        <p>{listName || taskPage || "Site"}</p>
-      </div>
-      <div className="task-list">
-        {tasks[taskPage] &&
-          tasks[taskPage].map((val, i) => (
-            <Task data={val.val()} key={i} onClick={(e) => onTaskClick(e, true, val)} />
-          ))}
-      </div>
-      <div className="input-box">
-        <div className="icon">
-          <SendIcon />
+    <>
+      {isLoading ? (
+        <div className="task-list-container">
+          
         </div>
-        <form onSubmit={handleSubmit} style={{ display: "flex", flexGrow: 1 }}>
-          <input
-            value={inputVal}
-            onChange={(e) => setInputVal(e.target.value)}
-            className="task-input-el"
-          />
-        </form>
-      </div>
+      ) : (
+        <div className="task-list-container">
+          <div className="task-list-title">
+            <p>{listName || taskPage || "Site"}</p>
+          </div>
+          <div className="task-list">
+            {tasks[taskPage] &&
+              tasks[taskPage].map((val, i) => (
+                <Task
+                  data={val.val()}
+                  key={i}
+                  firebase={firebase}
+                  user={user}
+                  taskID={val.key}
+                  onClick={(e) => onTaskClick(e, true, tasks[taskPage][i])}
+                />
+              ))}
+          </div>
+          <div className="input-box">
+            <div className="icon">
+              <SendIcon />
+            </div>
+            <form
+              onSubmit={handleSubmit}
+              style={{ display: "flex", flexGrow: 1 }}
+            >
+              <input
+                value={inputVal}
+                onChange={(e) => setInputVal(e.target.value)}
+                className="task-input-el"
+              />
+            </form>
+          </div>
 
-      {taskBar && <TaskOptionsBar currentTask={currentTask} hideCall={() => setTaskBar(!taskBar)} />}
-    </div>
+          {taskBar && (
+            <TaskOptionsBar
+              // currentTask={currentTask}
+              // wombo combo like this because currentTask didnt refresh after changing value in rt db
+              currentTask={(() => {
+                let ret;
+                tasks[taskPage].forEach((el) => {
+                  if (el.key === currentTask.key) {
+                    ret = el;
+                  }
+                });
+                return ret;
+              })()}
+              hideCall={() => setTaskBar(!taskBar)}
+            />
+          )}
+        </div>
+      )}
+    </>
   );
 };
 

@@ -11,11 +11,11 @@ const TaskOptionsBar = ({ currentTask, ...props }) => {
       <div className="blured-bg seen" onClick={props.hideCall}></div>
 
       <div className="task-options-bar">
-        <TaskNameButton task={currentTask} />
-        <SubTaskList />
+        <TaskNameButton task={currentTask}/>
+        <SubTaskList currentTask={currentTask} />
 
-        <AddToTodayButton />
-        <SetDeadLineButton />
+        <AddToTodayButton hideCall={props.hideCall} currentTask={currentTask} />
+        <SetDeadLineButton hideCall={props.hideCall} currentTask={currentTask} />
       </div>
     </>
   );

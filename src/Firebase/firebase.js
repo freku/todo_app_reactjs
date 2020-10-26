@@ -1,5 +1,4 @@
-import { auth } from "firebase/app";
-import firebase from "firebase/app";
+import firebase, { auth } from "firebase/app";
 import "firebase/database";
 import "firebase/auth";
 import "firebase/analytics";
@@ -53,10 +52,13 @@ class Firebase {
   createTodayTask = (userID, description) =>
     this.createTask(userID, description, { is_today: true });
 
-  createPlannedTask = (userID, description) =>
+  createPlannedTask = (userID, description) => {
+    const timestamp = new Date().getTime();
+
     this.createTask(userID, description, {
-      days_from_now: 1,
+      deadline: timestamp + 1000 * 3600 * 24,
     });
+  };
 
   createListTask = (userID, description, listID) =>
     this.createTask(userID, description, { on_list: listID });
@@ -104,7 +106,7 @@ class Firebase {
       snap.forEach((v) => {
         let task = v.val();
 
-        if (v.child("days_from_now").val()) {
+        if (v.child("deadline").val()) {
           tasks.planned.push(v);
         }
         if (v.child("is_important").val()) {
@@ -132,6 +134,10 @@ class Firebase {
     return this.userTasksRef(userID);
   };
 
+  getTaskByID = (userID, taskID, cb) => {
+    this.userTasksRef(userID).child(taskID).on("value", cb);
+  };
+
   removeTask = (userID, taskID) =>
     this.userTasksRef(userID).child(taskID).remove();
 
@@ -150,11 +156,14 @@ class Firebase {
   setTaskToday = (userID, taskID, is_today) =>
     this.userTasksRef(userID).child(taskID).update({ is_today });
 
-  setTaskDeadline = (userID, taskID, days_from_now) =>
-    this.userTasksRef(userID).child(taskID).update({ days_from_now });
+  setTaskDeadline = (userID, taskID, deadline) =>
+    this.userTasksRef(userID).child(taskID).update({ deadline });
+
+  removeTashDeadline = (userID, taskID) =>
+    this.userTasksRef(userID).child(taskID).child("deadline").remove();
 
   getSubtasks = (userID, taskID, cb) =>
-    this.child(`${taskID}/subtasks`).on('value', cb)
+    this.child(`${taskID}/subtasks`).on("value", cb);
 
   addSubtaskToTask = (userID, taskID, description) =>
     this.userTasksRef(userID)
