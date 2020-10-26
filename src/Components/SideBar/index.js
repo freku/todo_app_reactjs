@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import SideBarButton from "./SideBarButton";
 import SideBarListsBox from "./SideBarListsBox";
 import { FirebaseContext } from "../../Firebase";
@@ -11,6 +11,7 @@ import {
   CalendarIcon,
   ListIcon,
   MenuIcon,
+  LeaveIcon,
 } from "../../icons";
 
 import "./styles.css";
@@ -72,7 +73,7 @@ const SideBar = ({ taskPage, setTaskPage, setListName, listName }) => {
         />
         <SideBarButton
           onClick={firebase.signOut}
-          icon={<StarIcon />}
+          icon={<LeaveIcon />}
           description={"Sign Out"}
         />
 

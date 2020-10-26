@@ -104,8 +104,6 @@ class Firebase {
         today: [],
       };
       snap.forEach((v) => {
-        let task = v.val();
-
         if (v.child("deadline").val()) {
           tasks.planned.push(v);
         }

@@ -2,6 +2,7 @@
   display: flex;
   flex-direction: column;
   flex: 1;
+  overflow-y: auto;
 }
 
 .task-list {
@@ -69,44 +70,44 @@
     display: block;
     padding: 15px;
     text-align: center;
-    border-bottom: 1px solid rgba(0,0,0,.09);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.09);
     text-transform: capitalize;
     font-weight: 900;
   }
-  
+
   .task-list {
     overflow-y: auto;
     flex: 1;
     height: 0;
   }
-  
+
   .input-box {
     display: flex;
     height: 50px;
     align-items: center;
-  
+
     margin: 10px;
     background: #f2f2f2;
     border-radius: 35px;
     padding: 5px;
-  
+
     flex: none;
   }
-  
+
   .input-box .icon {
     padding: 10px;
     border-right: 1px solid #fff;
   }
-  
+
   .input-box .icon svg {
     fill: #6587fd;
     cursor: pointer;
   }
-  
+
   .input-box .icon svg:hover {
     fill: #516ccc;
   }
-  
+
   .task-input-el {
     border: 2px solid black;
     padding: 10px 5px;
@@ -116,7 +117,7 @@
     border: none;
     margin: 0 10px;
   }
-  
+
   .task-input-el:focus {
     outline: none;
   }

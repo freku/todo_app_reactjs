@@ -1,6 +1,6 @@
 import React from "react";
 import "./styles.css";
-import { CheckIcon, StarIcon, StarFullIcon, CheckedIcon } from "../../icons";
+import { CheckIcon, StarIcon, StarFullIcon, CheckedIcon, SunIcon } from "../../icons";
 
 const getSubtasksCount = (data) => {
   let amount = 0,
@@ -22,7 +22,8 @@ const getTimeLeft = (deadline) => {
   let now = new Date().getTime();
   let days_left = Math.abs(deadline - now) / (1000 * 3600 * 24);
 
-  return Math.round(days_left);
+  return days_left.toFixed(2);
+  // return Math.round(days_left);
 };
 
 const Task = ({ data, firebase, user, taskID, ...props }) => {
@@ -47,16 +48,17 @@ const Task = ({ data, firebase, user, taskID, ...props }) => {
 
       <div className="task-center" onClick={props.onClick}>
         <div className="dates">
-          <span>{`${date.getDate()}/${date.getMonth()+1}/${date.getFullYear()} (${
-            data.days_from_now !== undefined
-              ? getTimeLeft(data.days_from_now, data.created_at)
-              : ""
-          })`}</span>
+          <span>{`${date.getDate()}/${
+            date.getMonth() + 1
+          }/${date.getFullYear()} ${
+            data.deadline !== undefined ? `(${getTimeLeft(data.deadline)} days left)` : ""
+          }`}</span>
         </div>
         <div className="task-title">
           <p>{data.description || "Empty"}</p>
         </div>
         <div className="subtask-count">
+          {data.is_today ? <SunIcon width="10" height="10" /> : ''}
           <span>{stAll > 0 && `${stAll - stLeft} from ${stAll}`}</span>
         </div>
       </div>

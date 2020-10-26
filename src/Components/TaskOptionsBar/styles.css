@@ -19,8 +19,9 @@
   top: 0;
   border-top-left-radius: 35px;
   border-bottom-left-radius: 35px;
-  animation: bar-slidein 180ms ease-in-out;
+  /* animation: bar-slidein 180ms ease-in-out; */
   z-index: 5;
+  overflow: hidden;
 }
 
 @keyframes bar-slidein {
@@ -94,7 +95,7 @@
     top: 0;
     border-top-left-radius: 35px;
     border-bottom-left-radius: 35px;
-    animation: bar-slidein 180ms ease-in-out;
+    /* animation: bar-slidein 180ms ease-in-out; */
   }
   .button {
     display: flex;
