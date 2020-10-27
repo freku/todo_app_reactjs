@@ -55,7 +55,7 @@ const TaskNameButton = ({ task, allTasks, ...props }) => {
             {task.val().done ? <CheckedIcon /> : <CheckIcon />}
           </div>
 
-          <div className="description">
+          <div className="description with-area">
             <textarea
               ref={area}
               className="editable-title"

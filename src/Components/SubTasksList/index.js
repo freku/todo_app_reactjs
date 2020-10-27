@@ -70,7 +70,7 @@ const SubTasksList = ({ currentTask, ...props }) => {
           <AddIcon />
         </div>
 
-        <p>Add another subtask</p>
+        <p>Add subtask</p>
       </div>
     </div>
   );

@@ -1,0 +1,52 @@
+.landing-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 100px;
+  height: 100vh;
+  width: 100vw;
+}
+
+.landing-box > p {
+  font-size: 72px;
+}
+
+.landing-box p {
+  pointer-events: none;
+}
+
+.google-btn {
+  display: flex;
+  align-items: center;
+  font-size: 32px;
+  background-color: #fff;
+  padding: 5px 15px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+  transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+  border-radius: 3px;
+}
+
+.google-btn:hover {
+  box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+  cursor: pointer;
+}
+
+.google-btn svg {
+  width: 75px;
+  height: 75px;
+  pointer-events: none;
+}
+
+@media all and (max-width: 768px) {
+  .google-btn {
+    margin: 20px 10px;
+    font-size: 26px;
+  }
+}
+
+@media all and (max-width: 340px) {
+  .google-btn {
+    margin: 20px 10px;
+    font-size: 22px;
+  }
+}

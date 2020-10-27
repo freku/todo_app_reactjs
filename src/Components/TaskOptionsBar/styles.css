@@ -10,16 +10,15 @@
 }
 
 .task-options-bar {
-  padding: 35px 0;
   width: 80%;
   height: 100vh;
-  background: white;
+  background: #f4f4f4;
   position: absolute;
   right: 0;
   top: 0;
   border-top-left-radius: 35px;
   border-bottom-left-radius: 35px;
-  /* animation: bar-slidein 180ms ease-in-out; */
+  animation: bg-fadein 180ms ease-in-out;
   z-index: 5;
   overflow: hidden;
 }
@@ -45,9 +44,11 @@
 .button {
   display: flex;
 
-  background: #f6f6f6;
   padding: 5px;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+}
+
+.main-buttons .button {
+  justify-content: space-between;
 }
 
 .align-center {
@@ -59,8 +60,11 @@
 }
 
 .description {
-  flex: 1;
   display: flex;
+}
+
+.description.with-area {
+  flex-shrink: 3;
 }
 
 .special-icon {
@@ -68,10 +72,42 @@
 }
 
 .editable-title {
-  flex: 1;
-  background-color: #f6f6f6;
+  background-color: #fff;
   border: none;
   font-size: 20px;
+  width: 100%;
+  resize: none;
+}
+
+.main-buttons {
+  background-color: white;
+  padding: 35px 5px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.15);
+}
+
+.action-buttons {
+  margin-top: 10px;
+  background-color: white;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.15);
+  padding: 15px 5px;
+}
+
+.action-btn:hover {
+  cursor: pointer;
+}
+
+.bottom-menu {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  text-transform: uppercase;
+}
+
+.bottom-menu:hover {
+  cursor: pointer;
 }
 
 @media all and (min-width: 768px) {
@@ -86,23 +122,23 @@
   }
 
   .task-options-bar {
-    padding: 35px 0;
     width: 300px;
-    height: 100vh;
-    background: white;
-    position: absolute;
-    right: 0;
-    top: 0;
-    border-top-left-radius: 35px;
-    border-bottom-left-radius: 35px;
+    height: calc(100vh - 20px);
+    right: 10px;
+    top: 10px;
+    border-radius: 0;
+    border-top-right-radius: 35px;
+    border-bottom-right-radius: 35px;
     /* animation: bar-slidein 180ms ease-in-out; */
   }
+
+  .main-buttons {
+    background-color: white;
+  }
+
   .button {
     display: flex;
-
-    background: #f6f6f6;
     padding: 5px;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.15);
   }
 
   .align-center {

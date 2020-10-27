@@ -15,8 +15,11 @@ const SetDeadLineButton = ({ currentTask, ...props }) => {
 
   const CInput = forwardRef((props, ref) => (
     <div className="" onClick={props.onClick}>
-      <p style={{ color: is_planned ? "#1b97de" : "inherit" }}>Set Dead Line</p>
-      {/* {props.value} */}
+      <p
+        style={{ color: is_planned ? "#1b97de" : "inherit", cursor: "pointer" }}
+      >
+        Set Dead Line
+      </p>
     </div>
   ));
 
@@ -32,7 +35,7 @@ const SetDeadLineButton = ({ currentTask, ...props }) => {
   return (
     <div className="button align-center">
       <div className="icon">
-        <CalendarIcon />
+        <CalendarIcon style={{ fill: is_planned ? "#1b97de" : "inherit" }} />
       </div>
       <DatePicker
         selected={currentTask.val().deadline || startDate}

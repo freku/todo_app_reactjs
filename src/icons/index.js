@@ -16,8 +16,10 @@ import { ReactComponent as SunIcon } from "./wb_sunny-24px.svg";
 import { ReactComponent as ListButtonIcon } from "./format_list_bulleted-24px.svg";
 import { ReactComponent as MenuIcon } from "./menu-24px.svg";
 import { ReactComponent as LeaveIcon } from "./exit_to_app-24px.svg";
+import { ReactComponent as GoogleIcon } from "./google.svg";
 
 export {
+  GoogleIcon,
   AddCircleIcon,
   AddIcon,
   CircleCancelIcon,

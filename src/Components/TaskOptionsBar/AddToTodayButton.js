@@ -23,10 +23,10 @@ const AddToTodayButton = ({ currentTask, ...props }) => {
     <div
       onClick={onTodayClick}
       style={{ color: is_today ? "#1b97de" : "inherit" }}
-      className="button align-center"
+      className="button align-center action-btn"
     >
       <div className="icon">
-        <SunIcon />
+        <SunIcon style={{ fill: is_today ? "#1b97de" : "inherit" }} />
       </div>
 
       <div className="description">Add to Today</div>

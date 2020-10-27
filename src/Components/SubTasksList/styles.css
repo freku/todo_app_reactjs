@@ -1,5 +1,5 @@
 :root {
-  --check-icon-size: 22px;
+  --check-icon-size: 16px;
   --delete-icon-size: 20px;
   --add-sub-task-color: #328cf3;
 }
@@ -7,12 +7,12 @@
 .sub-task {
   display: flex;
   padding: 5px;
-  background: #f6f6f6;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.15);
 }
 
 .sub-icon {
-  padding-right: 5px;
+  margin-right: 5px;
+  width: var(--check-icon-size);
+  height: var(--check-icon-size);
 }
 
 .sub-icon svg {
@@ -35,7 +35,7 @@
 }
 
 .sub-task-description {
-  font-size: 0.85rem;
+  font-size: 16px;
 }
 
 .sub-tasks-list {
@@ -44,14 +44,19 @@
 .add-sub-task {
   display: flex;
   align-items: center;
+  /* justify-content: center; */
   padding: 5px;
   color: var(--add-sub-task-color);
 }
 
 .add-sub-task svg {
   fill: var(--add-sub-task-color);
+  width: 20px;
+  height: 20px;
 }
 
 .add-icon {
-  padding-right: 5px;
+  width: 20px;
+  height: 20px;
+  margin-right: 5px;
 }

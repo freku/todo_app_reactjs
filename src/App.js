@@ -1,6 +1,7 @@
 import React, { useContext, useState } from "react";
 import SideBar from "./Components/SideBar";
 import TaskList from "./Components/TaskList";
+import LandingPage from "./Components/LandingPage";
 import { FirebaseContext } from "./Firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { LoadingIcon } from "./icons";
@@ -30,9 +31,7 @@ const App = (props) => {
           <TaskList taskPage={taskPage} listName={listName} />
         </>
       ) : (
-        <div>
-          <h1 onClick={firebase.signInWithGoogle}>Zaloguj sie</h1>
-        </div>
+        <LandingPage />
       )}
     </div>
   );
