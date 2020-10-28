@@ -19,20 +19,6 @@ const TaskList = ({ taskPage, listName, ...props }) => {
   const firebase = useContext(FirebaseContext);
   const [user, loading, error] = useAuthState(firebase.auth);
 
-  const taskListToShow = tasks[taskPage].map((val, i) => {
-    if (!val.val().done) {
-      return (
-        <Task
-          data={val.val()}
-          key={i}
-          firebase={firebase}
-          user={user}
-          taskID={val.key}
-          onClick={(e) => onTaskClick(e, true, tasks[taskPage][i])}
-        />
-      );
-    }
-  });
 
   const handleSubmit = (e) => {
     e.preventDefault();
