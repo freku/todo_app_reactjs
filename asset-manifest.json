@@ -1,19 +1,19 @@
 {
   "files": {
-    "main.css": "/todo_app_reactjs/static/css/main.d9c787fd.chunk.css",
-    "main.js": "/todo_app_reactjs/static/js/main.76420698.chunk.js",
-    "main.js.map": "/todo_app_reactjs/static/js/main.76420698.chunk.js.map",
+    "main.css": "/todo_app_reactjs/static/css/main.ab0dcfbd.chunk.css",
+    "main.js": "/todo_app_reactjs/static/js/main.38928846.chunk.js",
+    "main.js.map": "/todo_app_reactjs/static/js/main.38928846.chunk.js.map",
     "runtime-main.js": "/todo_app_reactjs/static/js/runtime-main.03539738.js",
     "runtime-main.js.map": "/todo_app_reactjs/static/js/runtime-main.03539738.js.map",
     "static/css/2.e6ac38db.chunk.css": "/todo_app_reactjs/static/css/2.e6ac38db.chunk.css",
-    "static/js/2.34b91ef5.chunk.js": "/todo_app_reactjs/static/js/2.34b91ef5.chunk.js",
-    "static/js/2.34b91ef5.chunk.js.map": "/todo_app_reactjs/static/js/2.34b91ef5.chunk.js.map",
+    "static/js/2.0af90576.chunk.js": "/todo_app_reactjs/static/js/2.0af90576.chunk.js",
+    "static/js/2.0af90576.chunk.js.map": "/todo_app_reactjs/static/js/2.0af90576.chunk.js.map",
     "index.html": "/todo_app_reactjs/index.html",
-    "precache-manifest.278087825e4d22fbfe8b1e192fa1deab.js": "/todo_app_reactjs/precache-manifest.278087825e4d22fbfe8b1e192fa1deab.js",
+    "precache-manifest.d02a2966d4494471644299a3c9257344.js": "/todo_app_reactjs/precache-manifest.d02a2966d4494471644299a3c9257344.js",
     "service-worker.js": "/todo_app_reactjs/service-worker.js",
     "static/css/2.e6ac38db.chunk.css.map": "/todo_app_reactjs/static/css/2.e6ac38db.chunk.css.map",
-    "static/css/main.d9c787fd.chunk.css.map": "/todo_app_reactjs/static/css/main.d9c787fd.chunk.css.map",
-    "static/js/2.34b91ef5.chunk.js.LICENSE.txt": "/todo_app_reactjs/static/js/2.34b91ef5.chunk.js.LICENSE.txt",
+    "static/css/main.ab0dcfbd.chunk.css.map": "/todo_app_reactjs/static/css/main.ab0dcfbd.chunk.css.map",
+    "static/js/2.0af90576.chunk.js.LICENSE.txt": "/todo_app_reactjs/static/js/2.0af90576.chunk.js.LICENSE.txt",
     "static/media/Rolling-1s-200px.5e54b59d.svg": "/todo_app_reactjs/static/media/Rolling-1s-200px.5e54b59d.svg",
     "static/media/add.eb8fbeee.svg": "/todo_app_reactjs/static/media/add.eb8fbeee.svg",
     "static/media/add_circle_outline-24px.7948b0b9.svg": "/todo_app_reactjs/static/media/add_circle_outline-24px.7948b0b9.svg",
@@ -37,8 +37,8 @@
   "entrypoints": [
     "static/js/runtime-main.03539738.js",
     "static/css/2.e6ac38db.chunk.css",
-    "static/js/2.34b91ef5.chunk.js",
-    "static/css/main.d9c787fd.chunk.css",
-    "static/js/main.76420698.chunk.js"
+    "static/js/2.0af90576.chunk.js",
+    "static/css/main.ab0dcfbd.chunk.css",
+    "static/js/main.38928846.chunk.js"
   ]
 }
