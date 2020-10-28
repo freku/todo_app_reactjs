@@ -1,7 +1,6 @@
 import React, { useState, useContext, useRef, useEffect } from "react";
 import autosize from "autosize";
-import { useAuthState } from "react-firebase-hooks/auth";
-import { FirebaseContext } from "../../Firebase";
+import { useFirebaseWithUser } from "../../Firebase";
 import { CheckIcon, CheckedIcon, StarFullIcon, StarIcon } from "../../icons";
 
 const _ = {
@@ -14,8 +13,7 @@ const _ = {
 
 const TaskNameButton = ({ task, allTasks, ...props }) => {
   const [editable, setEditable] = useState("");
-  const firebase = useContext(FirebaseContext);
-  const [user, loading, error] = useAuthState(firebase.auth);
+  const [firebase, user, loading, error] = useFirebaseWithUser();
   const area = useRef(null);
 
   useEffect(() => {

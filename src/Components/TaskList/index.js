@@ -1,24 +1,20 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import Task from "../Task";
 import TaskOptionsBar from "../TaskOptionsBar";
-import { FirebaseContext } from "../../Firebase";
-import { useAuthState } from "react-firebase-hooks/auth";
-import { SendIcon, LoadingCircleIcon } from "../../icons";
+import { useFirebaseWithUser } from "../../Firebase";
+import { LoadingCircleIcon } from "../../icons";
 import InputBox from "./InputBox";
 
 import "./styles.css";
 
 const TaskList = ({ taskPage, listName, ...props }) => {
-  const [taskBar, setTaskBar] = useState(false);
+  const [taskBar, setTaskBar] = useState(false); // show or not to show Task Bar
   const [inputVal, setInputVal] = useState("");
-  const [isLoading, setIsLoading] = useState(true);
-  const [areSomeDone, setAreSomeDone] = useState(false);
-  const [tasks, setTasks] = useState({});
-  // fucking useless, delete it later
+  const [doneTasks, setDoneTasks] = useState([]);
+  const [notdoneTasks, setNotDoneTasks] = useState([]);
   const [currentTask, setCurrentTask] = useState(null);
-  const firebase = useContext(FirebaseContext);
-  const [user, loading, error] = useAuthState(firebase.auth);
-
+  const [tasks, setTasks] = useState(null);
+  const [firebase, user, loading, error] = useFirebaseWithUser();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -54,17 +50,25 @@ const TaskList = ({ taskPage, listName, ...props }) => {
 
   useEffect(() => {
     let ref = firebase.getTasks(user.uid, (ts) => {
-      setIsLoading(false);
       setTasks(ts);
+
+      setNotDoneTasks(
+        ts[taskPage] &&
+          ts[taskPage].filter((ob) => !ob.val().done).map((val, i) => val)
+      );
+
+      setDoneTasks(
+        ts[taskPage] &&
+          ts[taskPage].filter((ob) => ob.val().done).map((val, i) => val)
+      );
     });
-    setAreSomeDone(false);
 
     return () => ref.off();
-  }, [taskPage]);
+  }, [taskPage, firebase, user]);
 
   return (
     <>
-      {isLoading ? (
+      {!tasks ? (
         <div className="task-list-container flex-center-both">
           <LoadingCircleIcon />
         </div>
@@ -74,58 +78,31 @@ const TaskList = ({ taskPage, listName, ...props }) => {
             <p>{listName || taskPage || "Unknown Site"}</p>
           </div>
           <div className="task-list">
-            {tasks[taskPage] &&
-              tasks[taskPage].map((val, i) => {
-                if (!val.val().done) {
-                  return (
-                    <Task
-                      data={val.val()}
-                      key={i}
-                      firebase={firebase}
-                      user={user}
-                      taskID={val.key}
-                      onClick={(e) => onTaskClick(e, true, tasks[taskPage][i])}
-                    />
-                  );
-                }
-              })}
-            {areSomeDone && (
-              <div
-                style={{
-                  margin: "20px",
-                  marginLeft: "10px",
-                }}
-              >
-                <span
-                  style={{
-                    borderBottom: "1px solid rgba(0,0,0,.2)",
-                    padding: "8px",
-                    borderRadius: "5px",
-                    fontWeight: "900",
-                  }}
-                >
-                  Done Tasks:
-                </span>
+            {notdoneTasks.map((val, i) => (
+              <Task
+                data={val.val()}
+                key={i}
+                firebase={firebase}
+                user={user}
+                taskID={val.key}
+                onClick={(e) => onTaskClick(e, true, tasks[taskPage][i])}
+              />
+            ))}
+            {doneTasks.length > 0 && (
+              <div className="done-tasks">
+                <span>Done Tasks:</span>
               </div>
             )}
-            {tasks[taskPage] &&
-              tasks[taskPage].map((val, i) => {
-                if (val.val().done) {
-                  if (!areSomeDone) {
-                    setAreSomeDone(true);
-                  }
-                  return (
-                    <Task
-                      data={val.val()}
-                      key={i}
-                      firebase={firebase}
-                      user={user}
-                      taskID={val.key}
-                      onClick={(e) => onTaskClick(e, true, tasks[taskPage][i])}
-                    />
-                  );
-                }
-              })}
+            {doneTasks.map((val, i) => (
+              <Task
+                data={val.val()}
+                key={i}
+                firebase={firebase}
+                user={user}
+                taskID={val.key}
+                onClick={(e) => onTaskClick(e, true, tasks[taskPage][i])}
+              />
+            ))}
           </div>
           <InputBox
             handleSubmit={handleSubmit}
@@ -135,18 +112,9 @@ const TaskList = ({ taskPage, listName, ...props }) => {
 
           {taskBar && (
             <TaskOptionsBar
-              // currentTask={currentTask}
-              // wombo combo like this because currentTask didnt refresh after changing value in rt db
-              // at least in TaskNameButton
-              currentTask={(() => {
-                let ret;
-                tasks[taskPage].forEach((el) => {
-                  if (el.key === currentTask.key) {
-                    ret = el;
-                  }
-                });
-                return ret;
-              })()}
+              currentTask={
+                tasks[taskPage].filter((el) => el.key === currentTask.key)[0]
+              }
               hideCall={() => setTaskBar(!taskBar)}
             />
           )}

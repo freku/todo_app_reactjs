@@ -1,7 +1,6 @@
-import React, { useState, forwardRef, useContext } from "react";
+import React, { useState, forwardRef } from "react";
 import { CalendarIcon, RemoveIcon } from "../../icons";
-import { FirebaseContext } from "../../Firebase";
-import { useAuthState } from "react-firebase-hooks/auth";
+import { useFirebaseWithUser } from "../../Firebase";
 
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -9,12 +8,11 @@ import "./styles.css";
 
 const SetDeadLineButton = ({ currentTask, ...props }) => {
   const [startDate, setStartDate] = useState(new Date());
-  const firebase = useContext(FirebaseContext);
-  const [user, loading, error] = useAuthState(firebase.auth);
+  const [firebase, user, loading, error] = useFirebaseWithUser();
   const { deadline: is_planned } = currentTask.val();
 
   const CInput = forwardRef((props, ref) => (
-    <div className="" onClick={props.onClick}>
+    <div onClick={props.onClick}>
       <p
         style={{ color: is_planned ? "#1b97de" : "inherit", cursor: "pointer" }}
       >

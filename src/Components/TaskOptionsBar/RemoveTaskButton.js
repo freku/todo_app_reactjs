@@ -1,11 +1,9 @@
-import React, { useContext } from "react";
+import React from "react";
 import { TrashBinIcon } from "../../icons";
-import { useAuthState } from "react-firebase-hooks/auth";
-import { FirebaseContext } from "../../Firebase";
+import { useFirebaseWithUser } from "../../Firebase";
 
 const RemoveTaskButton = ({ currentTask, hideCall, ...props }) => {
-  const firebase = useContext(FirebaseContext);
-  const [user, loading, error] = useAuthState(firebase.auth);
+  const [firebase, user, loading, error] = useFirebaseWithUser();
 
   const onDeleteClick = (e) => {
     firebase.removeTask(user.uid, currentTask.key);

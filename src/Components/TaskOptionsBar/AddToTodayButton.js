@@ -1,12 +1,10 @@
-import React, { useState, useContext } from "react";
-import { useAuthState } from "react-firebase-hooks/auth";
+import React from "react";
 import { SunIcon } from "../../icons";
-import { FirebaseContext } from "../../Firebase";
+import { useFirebaseWithUser } from "../../Firebase";
 
 const AddToTodayButton = ({ currentTask, ...props }) => {
   const { is_today } = currentTask.val();
-  const firebase = useContext(FirebaseContext);
-  const [user, loading, error] = useAuthState(firebase.auth);
+  const [firebase, user, loading, error] = useFirebaseWithUser();
 
   const onTodayClick = (e) => {
     firebase.setTaskToday(

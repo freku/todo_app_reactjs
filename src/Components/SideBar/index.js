@@ -1,8 +1,7 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import SideBarButton from "./SideBarButton";
 import SideBarListsBox from "./SideBarListsBox";
-import { FirebaseContext } from "../../Firebase";
-import { useAuthState } from "react-firebase-hooks/auth";
+import { useFirebaseWithUser } from "../../Firebase";
 import MediaQuery, { useMediaQuery } from "react-responsive";
 
 import {
@@ -18,10 +17,8 @@ import "./styles.css";
 
 const SideBar = ({ taskPage, setTaskPage, setListName, listName }) => {
   const [focus, setFocus] = useState(false);
-  const firebase = useContext(FirebaseContext);
-  const [user, loading, error] = useAuthState(firebase.auth);
+  const [firebase, user, loading, error] = useFirebaseWithUser();
   const isMobile = useMediaQuery({ query: "(max-width: 768px)" });
-  // const isDesktop = useMediaQuery({ query: "(min-width: 768px)" });
 
   const handleBtnClick = (e, name) => {
     setTaskPage(e.target.getAttribute("pagename"));
@@ -33,9 +30,7 @@ const SideBar = ({ taskPage, setTaskPage, setListName, listName }) => {
       <MediaQuery maxWidth={768}>
         <div className="mobile-bar">
           <MenuIcon onClick={() => setFocus(true)} />
-          <p className="mb-title">
-            {listName || taskPage || "Site"}
-          </p>
+          <p className="mb-title">{listName || taskPage || "Site"}</p>
         </div>
       </MediaQuery>
 

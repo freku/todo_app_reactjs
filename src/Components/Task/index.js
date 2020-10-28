@@ -23,7 +23,6 @@ const getTimeLeft = (deadline) => {
   let days_left = Math.abs(deadline - now) / (1000 * 3600 * 24);
 
   return days_left.toFixed(2);
-  // return Math.round(days_left);
 };
 
 const Task = ({ data, firebase, user, taskID, ...props }) => {

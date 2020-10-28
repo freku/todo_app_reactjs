@@ -39,8 +39,6 @@ class Firebase {
       done: false,
       ...special_data,
     });
-
-    console.log({ userID, description, ...special_data });
   };
 
   createNormalTask = (userID, description) =>

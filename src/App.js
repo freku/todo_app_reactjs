@@ -1,9 +1,8 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import SideBar from "./Components/SideBar";
 import TaskList from "./Components/TaskList";
 import LandingPage from "./Components/LandingPage";
-import { FirebaseContext } from "./Firebase";
-import { useAuthState } from "react-firebase-hooks/auth";
+import { useFirebaseWithUser } from "./Firebase";
 import { LoadingIcon } from "./icons";
 
 import "./styles.css";
@@ -11,8 +10,7 @@ import "./styles.css";
 const App = (props) => {
   const [taskPage, setTaskPage] = useState("today");
   const [listName, setListName] = useState("");
-  const firebase = useContext(FirebaseContext);
-  const [user, loading, error] = useAuthState(firebase.auth);
+  const [firebase, user, loading, error] = useFirebaseWithUser();
 
   return (
     <div className="container">
