@@ -4,6 +4,7 @@ import TaskOptionsBar from "../TaskOptionsBar";
 import { FirebaseContext } from "../../Firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { SendIcon, LoadingCircleIcon } from "../../icons";
+import InputBox from "./InputBox";
 
 import "./styles.css";
 
@@ -17,6 +18,21 @@ const TaskList = ({ taskPage, listName, ...props }) => {
   const [currentTask, setCurrentTask] = useState(null);
   const firebase = useContext(FirebaseContext);
   const [user, loading, error] = useAuthState(firebase.auth);
+
+  const taskListToShow = tasks[taskPage].map((val, i) => {
+    if (!val.val().done) {
+      return (
+        <Task
+          data={val.val()}
+          key={i}
+          firebase={firebase}
+          user={user}
+          taskID={val.key}
+          onClick={(e) => onTaskClick(e, true, tasks[taskPage][i])}
+        />
+      );
+    }
+  });
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -63,16 +79,13 @@ const TaskList = ({ taskPage, listName, ...props }) => {
   return (
     <>
       {isLoading ? (
-        <div
-          className="task-list-container"
-          style={{ justifyContent: "center", alignItems: "center" }}
-        >
+        <div className="task-list-container flex-center-both">
           <LoadingCircleIcon />
         </div>
       ) : (
         <div className="task-list-container">
           <div className="task-list-title">
-            <p>{listName || taskPage || "Site"}</p>
+            <p>{listName || taskPage || "Unknown Site"}</p>
           </div>
           <div className="task-list">
             {tasks[taskPage] &&
@@ -128,21 +141,11 @@ const TaskList = ({ taskPage, listName, ...props }) => {
                 }
               })}
           </div>
-          <div className="input-box">
-            <div className="icon">
-              <SendIcon />
-            </div>
-            <form
-              onSubmit={handleSubmit}
-              style={{ display: "flex", flexGrow: 1 }}
-            >
-              <input
-                value={inputVal}
-                onChange={(e) => setInputVal(e.target.value)}
-                className="task-input-el"
-              />
-            </form>
-          </div>
+          <InputBox
+            handleSubmit={handleSubmit}
+            inputVal={inputVal}
+            setInputVal={setInputVal}
+          />
 
           {taskBar && (
             <TaskOptionsBar

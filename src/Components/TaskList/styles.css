@@ -55,6 +55,11 @@
   display: none;
 }
 
+.flex-center-both {
+  justify-content: center;
+  align-items: center;
+} 
+
 @media all and (min-width: 768px) {
   .task-list-container {
     display: flex;
