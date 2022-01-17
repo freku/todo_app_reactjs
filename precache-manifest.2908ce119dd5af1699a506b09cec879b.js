@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "0541c873a80656f7e92c5ef2926358b3",
+    "revision": "27de33ed96ee7579ca876e64be00eb4f",
     "url": "/todo_app_reactjs/index.html"
   },
   {
@@ -8,7 +8,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/todo_app_reactjs/static/css/2.e6ac38db.chunk.css"
   },
   {
-    "revision": "d68c02d4684d79fa37f9",
+    "revision": "4554393e2bfeb3e9da4a",
     "url": "/todo_app_reactjs/static/css/main.ab0dcfbd.chunk.css"
   },
   {
@@ -20,16 +20,16 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/todo_app_reactjs/static/js/2.0af90576.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "d68c02d4684d79fa37f9",
-    "url": "/todo_app_reactjs/static/js/main.38928846.chunk.js"
+    "revision": "4554393e2bfeb3e9da4a",
+    "url": "/todo_app_reactjs/static/js/main.7fafa59f.chunk.js"
   },
   {
     "revision": "a90683de830ad4e6df68",
     "url": "/todo_app_reactjs/static/js/runtime-main.03539738.js"
   },
   {
-    "revision": "5e54b59d88dc32f4d47ce61237a24c67",
-    "url": "/todo_app_reactjs/static/media/Rolling-1s-200px.5e54b59d.svg"
+    "revision": "fa49ae77fe2cdd39ac880feea334026d",
+    "url": "/todo_app_reactjs/static/media/Rolling-1s-200px.fa49ae77.svg"
   },
   {
     "revision": "eb8fbeeedd9afbb5797105fac8338a4c",
@@ -88,8 +88,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/todo_app_reactjs/static/media/list_alt-24px.6ebccfdf.svg"
   },
   {
-    "revision": "87f2b782cc0ae3c4420d877e8cca29ba",
-    "url": "/todo_app_reactjs/static/media/loading.87f2b782.svg"
+    "revision": "fd691338c0143dc3deccb6b407c6f879",
+    "url": "/todo_app_reactjs/static/media/loading.fd691338.svg"
   },
   {
     "revision": "c6263b300023baa3087ab7af506481ef",
