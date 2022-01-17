@@ -68,7 +68,8 @@ const SideBarListsBox = ({
             <SideBarListButton
               key={v.key}
               name={v.child("name").val()}
-              pagename={v.key}
+              // pagename={v.key}
+              pagename={v.child("name").val()}
               active={taskPage === v.child("name").val()}
               onClick={(e) => handleBtnClick(e, v.child("name").val())}
               onClickDelete={(e) => onClickDelete(e, v.key)}

@@ -21,7 +21,7 @@ const SideBar = ({ taskPage, setTaskPage, setListName, listName }) => {
   const isMobile = useMediaQuery({ query: "(max-width: 768px)" });
 
   const handleBtnClick = (e, name) => {
-    setTaskPage(e.target.getAttribute("pagename"));
+    setTaskPage(e.target.getAttribute("pagename") || "today");
     setListName(name || "");
   };
 

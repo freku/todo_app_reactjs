@@ -52,6 +52,12 @@ const TaskList = ({ taskPage, listName, ...props }) => {
     let ref = firebase.getTasks(user.uid, (ts) => {
       setTasks(ts);
 
+      // console.log('============================');
+      // console.log(taskPage);
+      // console.log(ts);
+      // console.log(ts[taskPage]);
+      // console.log('============================');
+
       setNotDoneTasks(
         ts[taskPage] &&
           ts[taskPage].filter((ob) => !ob.val().done).map((val, i) => val)

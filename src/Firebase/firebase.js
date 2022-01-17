@@ -84,7 +84,7 @@ class Firebase {
       this.db
         .ref(`task_lists/${userID}/${listID}`)
         .remove()
-        .then(() => console.log("usunieto liste"))
+        .then(() => console.log(`usunieto liste ${listID}`))
         .catch((err) => console.error(err));
     });
   };
@@ -101,6 +101,13 @@ class Firebase {
         planned: [],
         today: [],
       };
+
+      this.db.ref(`task_lists/${userID}`).on("value", (snap) => {
+        snap.forEach(v => {
+          tasks[v.child('name').val()] = [];
+        })
+      })
+
       snap.forEach((v) => {
         if (v.child("deadline").val()) {
           tasks.planned.push(v);
